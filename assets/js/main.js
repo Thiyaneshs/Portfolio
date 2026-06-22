@@ -184,7 +184,7 @@
   }
 
   /**
-   * Back to top button
+   * Rocket Back to Top button
    */
   let backtotop = select('.back-to-top')
   if (backtotop) {
@@ -197,6 +197,30 @@
     }
     window.addEventListener('load', toggleBacktotop)
     onscroll(document, toggleBacktotop)
+
+    // Rocket launch on click
+    backtotop.addEventListener('click', function(e) {
+      e.preventDefault()
+      if (backtotop.classList.contains('launching')) return
+
+      // Trigger launch animation
+      backtotop.classList.remove('reset')
+      backtotop.classList.add('launching')
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      // After launch animation ends, reset rocket back in
+      setTimeout(() => {
+        backtotop.classList.remove('launching')
+        backtotop.classList.add('reset')
+
+        // Re-add float animation after reset
+        setTimeout(() => {
+          backtotop.classList.remove('reset')
+        }, 400)
+      }, 900)
+    })
   }
 
   /**
